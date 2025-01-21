@@ -3,6 +3,10 @@ module Public
     skip_before_action :authenticate_user!
     layout "public"
 
+    def index
+      # Landing page
+    end
+
     def show
       Rails.logger.debug "Params: #{params.inspect}"
       Rails.logger.debug "Form token: #{params[:public_token]}"

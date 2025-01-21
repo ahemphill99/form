@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
-  
-  root "forms#index"
-  get 'dashboard', to: 'dashboard#index'
-  get 'responses', to: 'dashboard#all_responses'
-  
+
+  root "home#index"
+  get "dashboard", to: "dashboard#index"
+  get "responses", to: "dashboard#all_responses"
+
   resources :forms do
     resources :questions do
       member do
@@ -17,13 +17,13 @@ Rails.application.routes.draw do
   end
 
   namespace :public do
-    resources :forms, param: :public_token, only: [:show] do
+    resources :forms, param: :public_token, only: [ :show ] do
       member do
         post :submit
         get :review
       end
-      
-      resources :questions, only: [:show] do
+
+      resources :questions, only: [ :show ] do
         member do
           post :answer
         end
