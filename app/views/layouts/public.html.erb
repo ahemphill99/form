@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Catering Form</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+
+    <style>
+      [data-controller='slide'] {
+        position: relative;
+        min-height: 400px;
+      }
+
+      .turbo-frame-enter {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+
+      .turbo-frame-enter-active {
+        opacity: 1;
+        transform: translateX(0);
+        transition: all 500ms ease-out;
+      }
+
+      .turbo-frame-exit {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .turbo-frame-exit-active {
+        opacity: 0;
+        transform: translateX(-100%);
+        transition: all 500ms ease-out;
+      }
+
+      turbo-frame {
+        display: block;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-50">
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl w-full space-y-8">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,102 @@
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-lg">
+    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Subscribe to Access</h2>
+    <p class="mt-4 text-center text-sm text-gray-600">
+      Start with a 14-day free trial, then $10/month
+    </p>
+  </div>
+
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-lg">
+    <div class="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-lg">
+      <div class="p-6">
+        <h3 class="text-xl font-semibold text-gray-900">Monthly Plan</h3>
+        <p class="mt-2 text-gray-600">Full access to all features</p>
+        <ul class="mt-4 space-y-3">
+          <li class="flex items-center text-gray-600">
+            <svg class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            14-day free trial
+          </li>
+          <li class="flex items-center text-gray-600">
+            <svg class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            Full access to all features
+          </li>
+          <li class="flex items-center text-gray-600">
+            <svg class="h-5 w-5 text-green-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            Cancel anytime
+          </li>
+        </ul>
+        <div class="mt-8">
+          <p class="mb-4">
+            <span class="text-4xl font-bold text-gray-900">$10</span>
+            <span class="text-gray-600">/month</span>
+          </p>
+          
+          <%= form_tag subscriptions_path, method: :post, id: 'payment-form', class: 'space-y-4', data: { turbo: false } do %>
+            <%= hidden_field_tag :plan_id, @stripe_price_id %>
+            
+            <div id="card-element" class="mt-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              <!-- Stripe Elements will insert the card input here -->
+            </div>
+            
+            <div id="card-errors" class="mt-2 text-red-600 text-sm" role="alert"></div>
+
+            <%= submit_tag 'Subscribe Now', id: 'submit-button',
+                class: 'w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%# Add Stripe Elements JavaScript %>
+<%= javascript_include_tag "https://js.stripe.com/v3/" %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Create a Stripe client
+    var stripe = Stripe('<%= @stripe_publishable_key %>');
+    var elements = stripe.elements();
+
+    // Create an instance of the card Element
+    var card = elements.create('card');
+
+    // Add an instance of the card Element into the `card-element` div
+    card.mount('#card-element');
+
+    // Handle form submission
+    var form = document.getElementById('payment-form');
+    var submitButton = document.getElementById('submit-button');
+    var errorElement = document.getElementById('card-errors');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      submitButton.disabled = true;
+
+      stripe.createPaymentMethod({
+        type: 'card',
+        card: card,
+      }).then(function(result) {
+        if (result.error) {
+          errorElement.textContent = result.error.message;
+          submitButton.disabled = false;
+        } else {
+          // Send the payment method ID to your server
+          var hiddenInput = document.createElement('input');
+          hiddenInput.setAttribute('type', 'hidden');
+          hiddenInput.setAttribute('name', 'payment_method_id');
+          hiddenInput.setAttribute('value', result.paymentMethod.id);
+          form.appendChild(hiddenInput);
+
+          form.submit();
+        }
+      });
+    });
+  });
+</script>

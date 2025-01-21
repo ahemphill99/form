@@ -1,0 +1,176 @@
+<div class="min-h-screen bg-gray-100">
+  <div class="py-10">
+    <header>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="md:flex md:items-center md:justify-between">
+          <div class="flex-1 min-w-0">
+            <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+              Dashboard
+            </h2>
+          </div>
+          <div class="mt-4 flex md:mt-0 md:ml-4">
+            <%= link_to new_form_path, class: "ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do %>
+              <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+              </svg>
+              Create New Form
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <!-- Stats Overview -->
+        <div class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <!-- Total Forms -->
+          <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+              <div class="flex items-center">
+                <div class="flex-shrink-0">
+                  <svg class="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt class="text-sm font-medium text-gray-500 truncate">Total Forms</dt>
+                    <dd class="text-3xl font-semibold text-gray-900"><%= @forms.count %></dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-5 py-3">
+              <%= link_to forms_path, class: "text-sm font-medium text-indigo-600 hover:text-indigo-900" do %>
+                View all forms
+                <span aria-hidden="true"> &rarr;</span>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- Total Responses -->
+          <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+              <div class="flex items-center">
+                <div class="flex-shrink-0">
+                  <svg class="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  </svg>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt class="text-sm font-medium text-gray-500 truncate">Total Responses</dt>
+                    <dd class="text-3xl font-semibold text-gray-900"><%= FormResponse.count %></dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-5 py-3">
+              <div class="text-sm font-medium text-gray-500">
+                Across all forms
+                <%= link_to responses_path, class: "ml-2 text-indigo-600 hover:text-indigo-900" do %>
+                  View all responses
+                  <span aria-hidden="true"> &rarr;</span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+              <div class="flex items-center">
+                <div class="flex-shrink-0">
+                  <svg class="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt class="text-sm font-medium text-gray-500 truncate">Recent Activity</dt>
+                    <dd class="text-3xl font-semibold text-gray-900">
+                      <%= FormResponse.where('created_at > ?', 24.hours.ago).count %>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 px-5 py-3">
+              <div class="text-sm font-medium text-gray-500">
+                Responses in last 24h
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Forms -->
+        <div class="mt-8">
+          <div class="align-middle inline-block min-w-full">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Recent Forms</h3>
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+              <ul role="list" class="divide-y divide-gray-200">
+                <% @forms.limit(5).each do |form| %>
+                  <li>
+                    <div class="px-4 py-4 sm:px-6">
+                      <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                          <h4 class="text-lg leading-6 font-medium text-gray-900">
+                            <%= form.title %>
+                          </h4>
+                          <p class="mt-1 text-sm text-gray-500">
+                            <%= form.description %>
+                          </p>
+                          <div class="mt-2 sm:flex sm:justify-start">
+                            <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
+                              <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                                <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" />
+                              </svg>
+                              <%= pluralize(form.questions.count, 'question') %>
+                            </div>
+                            <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
+                              <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                              </svg>
+                              <%= pluralize(form.form_responses.count, 'response') %>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mt-4 flex-shrink-0 sm:mt-0">
+                          <%= link_to form_path(form), class: "inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do %>
+                            View form
+                            <svg class="ml-2 -mr-1 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            </svg>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                <% end %>
+              </ul>
+              <% if @forms.empty? %>
+                <div class="text-center py-12">
+                  <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                  </svg>
+                  <h3 class="mt-2 text-sm font-medium text-gray-900">No forms</h3>
+                  <p class="mt-1 text-sm text-gray-500">Get started by creating a new form.</p>
+                  <div class="mt-6">
+                    <%= link_to new_form_path, class: "inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do %>
+                      <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                      </svg>
+                      Create New Form
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

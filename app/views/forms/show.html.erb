@@ -1,0 +1,110 @@
+<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+  <div class="px-4 py-6 sm:px-0">
+    <div class="mb-8">
+      <div class="flex justify-between items-center">
+        <h1 class="text-2xl font-semibold text-gray-900"><%= @form.title %></h1>
+        <div class="flex space-x-4">
+          <%= link_to 'View Responses', responses_form_path(@form), class: "inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" %>
+          <%= link_to 'Edit Form', edit_form_path(@form), class: "inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" %>
+          <%= link_to 'Back to Forms', forms_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700" %>
+        </div>
+      </div>
+      <p class="mt-2 text-sm text-gray-500"><%= @form.description %></p>
+    </div>
+
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+      <div class="px-4 py-5 sm:px-6">
+        <h2 class="text-lg leading-6 font-medium text-gray-900">Public Form Link</h2>
+        <div class="mt-2 flex items-center space-x-4">
+          <div class="flex-1">
+            <input type="text" readonly value="<%= public_form_url(@form.public_token, host: request.host_with_port) %>" class="block w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-gray-50" onclick="this.select()" />
+          </div>
+          <%= link_to 'Open Form', public_form_path(@form.public_token), target: '_blank', class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+      <div class="px-4 py-5 sm:px-6">
+        <h3 class="text-lg font-medium leading-6 text-gray-900">Embed Form</h3>
+        <div class="mt-2 max-w-xl text-sm text-gray-500">
+          <p>Copy this code to embed the form in your website:</p>
+        </div>
+        <div class="mt-3">
+          <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300">
+            <pre class="flex-1 p-4 text-gray-900 sm:text-sm"><%= @form.embed_code(request.host_with_port) %></pre>
+            <button type="button" 
+                    class="copy-button relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                    data-clipboard-text="<%= @form.embed_code(request.host_with_port) %>">
+              Copy
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+      <div class="px-4 py-5 sm:px-6">
+        <h2 class="text-lg leading-6 font-medium text-gray-900">Questions</h2>
+        <p class="mt-1 max-w-2xl text-sm text-gray-500">
+          <%= link_to 'Add New Question', new_form_question_path(@form), class: "text-indigo-600 hover:text-indigo-900" %>
+        </p>
+      </div>
+      
+      <div class="border-t border-gray-200">
+        <% if @form.questions.any? %>
+          <ul class="divide-y divide-gray-200">
+            <% @form.questions.order(:order).each do |question| %>
+              <li>
+                <div class="px-4 py-4 sm:px-6 flex justify-between items-center">
+                  <div class="flex-1">
+                    <div class="flex items-center">
+                      <p class="text-sm font-medium text-indigo-600">
+                        <%= question.question_text %>
+                        <% if question.required? %>
+                          <span class="ml-1 text-red-500">*</span>
+                        <% end %>
+                      </p>
+                    </div>
+                    <div class="mt-2 flex items-center text-sm text-gray-500">
+                      <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                      </svg>
+                      <%= question.question_type %>
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-4">
+                    <%= link_to 'Edit', edit_form_question_path(@form, question), class: "text-indigo-600 hover:text-indigo-900" %>
+                    <%= button_to 'Delete', form_question_path(@form, question), method: :delete, class: "text-red-600 hover:text-red-900", form: { data: { turbo_confirm: 'Are you sure?' } } %>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <div class="px-4 py-5 sm:px-6 text-center">
+            <p class="text-sm text-gray-500">No questions yet. Click "Add New Question" to get started.</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_tag do %>
+  document.addEventListener('DOMContentLoaded', function() {
+    const clipboardButtons = document.querySelectorAll('[data-clipboard-text]');
+    clipboardButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const text = this.dataset.clipboardText;
+        navigator.clipboard.writeText(text).then(() => {
+          const originalText = button.textContent;
+          button.textContent = 'Copied!';
+          setTimeout(() => {
+            button.textContent = originalText;
+          }, 2000);
+        });
+      });
+    });
+  });
+<% end %>

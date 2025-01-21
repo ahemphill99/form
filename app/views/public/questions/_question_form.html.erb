@@ -1,0 +1,88 @@
+<%= turbo_frame_tag "question_frame" do %>
+  <div class="space-y-6">
+    <div class="mb-8 text-center">
+      <h2 class="text-2xl font-bold text-gray-900 mb-2"><%= @form.title %></h2>
+      <p class="text-sm text-gray-500">Question <%= @current_index + 1 %> of <%= @total_questions %></p>
+      <div class="w-full bg-gray-200 rounded-full h-2.5 mt-4">
+        <div class="bg-indigo-600 h-2.5 rounded-full" style="width: <%= (@current_index + 1).to_f / @total_questions * 100 %>%"></div>
+      </div>
+    </div>
+
+    <%= form_with url: answer_public_form_question_path(@form, @question), 
+                  method: :post, 
+                  data: { turbo_frame: "question_frame" } do |f| %>
+      <div class="space-y-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">
+            <%= @question.question_text %>
+            <% if @question.required? %>
+              <span class="text-red-500">*</span>
+            <% end %>
+          </label>
+
+          <div class="mt-4">
+            <% case @question.question_type %>
+            <% when 'text' %>
+              <%= text_field_tag :response, nil,
+                  class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm",
+                  required: @question.required? %>
+
+            <% when 'choice' %>
+              <%= select_tag :response,
+                  options_for_select(['Corporate Event', 'Wedding', 'Birthday Party', 'Other']),
+                  class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md",
+                  required: @question.required? %>
+
+            <% when 'date' %>
+              <%= date_field_tag :response, nil,
+                  class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm",
+                  required: @question.required? %>
+
+            <% when 'number' %>
+              <%= number_field_tag :response, nil,
+                  class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm",
+                  required: @question.required? %>
+
+            <% when 'radio' %>
+              <div class="space-y-4">
+                <% ['Option 1', 'Option 2', 'Option 3'].each do |option| %>
+                  <div class="flex items-center">
+                    <%= radio_button_tag :response, option, false,
+                        class: "focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300",
+                        required: @question.required? %>
+                    <%= label_tag "response_#{option.downcase.gsub(' ', '_')}", option,
+                        class: "ml-3 block text-sm font-medium text-gray-700" %>
+                  </div>
+                <% end %>
+              </div>
+
+            <% when 'checkbox' %>
+              <div class="space-y-4">
+                <% ['Option 1', 'Option 2', 'Option 3'].each do |option| %>
+                  <div class="flex items-center">
+                    <%= check_box_tag "response[]", option, false,
+                        class: "focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded",
+                        required: @question.required? %>
+                    <%= label_tag "response_#{option.downcase.gsub(' ', '_')}", option,
+                        class: "ml-3 block text-sm font-medium text-gray-700" %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <% if @current_index > 0 %>
+            <%= link_to "Back", public_form_question_path(@form, @form.questions[@current_index - 1]),
+                class: "inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50",
+                data: { turbo_frame: "question_frame" } %>
+          <% end %>
+          
+          <%= f.submit @next_question ? "Next" : "Submit",
+              class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

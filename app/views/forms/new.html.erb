@@ -1,0 +1,59 @@
+<div class="min-h-screen bg-gray-100">
+  <div class="py-10">
+    <header>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold leading-tight text-gray-900">Create New Form</h1>
+      </div>
+    </header>
+    <main>
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white mt-8 px-4 py-5 shadow sm:rounded-lg sm:p-6">
+          <%= form_with(model: @form, local: true, class: "space-y-8 divide-y divide-gray-200") do |f| %>
+            <div class="space-y-8 divide-y divide-gray-200">
+              <div>
+                <div>
+                  <h3 class="text-lg font-medium leading-6 text-gray-900">Form Details</h3>
+                  <p class="mt-1 text-sm text-gray-500">
+                    Create a new form to collect responses from your users.
+                  </p>
+                </div>
+
+                <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                  <div class="sm:col-span-4">
+                    <%= f.label :title, class: "block text-sm font-medium text-gray-700" %>
+                    <div class="mt-1">
+                      <%= f.text_field :title, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm", placeholder: "e.g., Customer Feedback Form" %>
+                    </div>
+                  </div>
+
+                  <div class="sm:col-span-6">
+                    <%= f.label :description, class: "block text-sm font-medium text-gray-700" %>
+                    <div class="mt-1">
+                      <%= f.text_area :description, rows: 3, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm", placeholder: "Describe what this form is for..." %>
+                    </div>
+                    <p class="mt-2 text-sm text-gray-500">Brief description of your form's purpose.</p>
+                  </div>
+
+                  <div class="sm:col-span-6">
+                    <%= f.label :completion_message, class: "block text-sm font-medium text-gray-700" %>
+                    <div class="mt-1">
+                      <%= f.text_area :completion_message, rows: 2, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm", placeholder: "Thank you for your response!" %>
+                    </div>
+                    <p class="mt-2 text-sm text-gray-500">Message to show after form submission.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-5">
+              <div class="flex justify-end">
+                <%= link_to "Cancel", forms_path, class: "rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+                <%= f.submit "Create Form", class: "ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
