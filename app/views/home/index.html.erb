@@ -1,111 +1,155 @@
-<div class="relative isolate">
-  <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:gap-x-10 lg:px-8 lg:py-40">
-    <div class="mx-auto max-w-2xl lg:mx-0 lg:flex-auto">
-      <div class="flex">
-        <div class="relative flex items-center gap-x-4 rounded-full px-4 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-          <span class="font-semibold text-indigo-600">New</span>
-          <span class="h-4 w-px bg-gray-900/10" aria-hidden="true"></span>
-          <a href="#" class="flex items-center gap-x-1">
-            <span class="absolute inset-0" aria-hidden="true"></span>
-            Embed forms on your website
-            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-            </svg>
-          </a>
-        </div>
-      </div>
-      <h1 class="mt-10 max-w-lg text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Create Beautiful Catering Forms</h1>
-      <p class="mt-6 text-lg leading-8 text-gray-600">
-        Streamline your catering business with professional, customizable forms. Collect event details, manage responses, and grow your business.
-      </p>
-      <div class="mt-10 flex items-center gap-x-6">
-        <%= link_to "Get Started", new_user_registration_path, class: "rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
-        <%= link_to "Sign In", new_user_session_path, class: "text-sm font-semibold leading-6 text-gray-900" %>
+<div class="bg-gray-900 py-24 sm:py-32">
+  <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+    <div class="flex justify-between items-center mb-16">
+      <h2 class="text-base/7 font-semibold text-emerald-400">Simple Forms, Powerful Results</h2>
+      <div class="flex gap-4">
+        <%= link_to "Log in", new_user_session_path, class: "rounded-md bg-gray-800 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500" %>
+        <%= link_to "Sign up", new_user_registration_path, class: "rounded-md bg-emerald-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500" %>
       </div>
     </div>
-    <div class="mt-16 sm:mt-24 lg:mt-0 lg:flex-shrink-0 lg:flex-grow">
-      <svg viewBox="0 0 366 729" role="img" class="mx-auto w-[22.875rem] max-w-full drop-shadow-xl">
-        <title>Form preview</title>
-        <defs>
-          <clipPath id="2ade4387-9c63-4fc4-b754-10e687a0d332">
-            <rect width="316" height="684" rx="36" />
-          </clipPath>
-        </defs>
-        <path fill="#4B5563" d="M363.315 64.213C363.315 22.99 341.312 1 300.092 1H66.751C25.53 1 3.528 22.99 3.528 64.213v44.68l-.857.143A2 2 0 0 0 1 111.009v24.611a2 2 0 0 0 1.671 1.973l.95.158a2.26 2.26 0 0 1-.093.236v26.173c.212.1.398.296.541.643l-1.398.233A2 2 0 0 0 1 167.009v47.611a2 2 0 0 0 1.671 1.973l1.368.228c-.139.319-.314.533-.511.653v16.637c.221.104.414.313.56.689l-1.417.236A2 2 0 0 0 1 237.009v47.611a2 2 0 0 0 1.671 1.973l1.347.225c-.135.294-.302.493-.49.607v377.681c0 41.213 22 63.208 63.223 63.208h95.074c.947-.504 2.717-.843 4.745-.843l.141.001h.194l.086-.001 33.704.005c1.849.043 3.442.37 4.323.838h95.074c41.222 0 63.223-21.999 63.223-63.212v-394.63c-.259-.275-.48-.796-.63-1.47l-.011-.133 1.655-.276A2 2 0 0 0 366 266.62v-77.611a2 2 0 0 0-1.671-1.973l-1.712-.285c.148-.839.396-1.491.698-1.811V64.213Z" />
-        <path fill="#343E4E" d="M16 59c0-23.748 19.252-43 43-43h246c23.748 0 43 19.252 43 43v615c0 23.196-18.804 42-42 42H58c-23.196 0-42-18.804-42-42V59Z" />
-        <foreignObject width="316" height="684" transform="translate(24 24)" clip-path="url(#2ade4387-9c63-4fc4-b754-10e687a0d332)">
-          <div class="bg-white h-full w-full overflow-hidden rounded-[36px]">
-            <div class="px-6 py-8">
-              <div class="space-y-6">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700">Event Date</label>
-                  <input type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700">Event Type</label>
-                  <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                    <option>Wedding</option>
-                    <option>Corporate</option>
-                    <option>Birthday</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700">Number of Guests</label>
-                  <input type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+    
+    <p class="mt-2 max-w-lg text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">Create beautiful forms for your customers in minutes</p>
+    
+    <div class="mt-10 grid gap-4 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
+      <!-- Form Builder -->
+      <div class="sm:col-span-2">
+        <div class="relative overflow-hidden rounded-3xl bg-gray-800 p-px">
+          <div class="relative overflow-hidden rounded-3xl bg-gray-900 p-8 sm:p-10">
+            <h3 class="text-base/7 font-semibold text-emerald-400">Form Builder</h3>
+            <p class="mt-4 text-lg font-medium tracking-tight text-white">Create Forms in Minutes</p>
+            <p class="mt-2 text-base/7 text-gray-300">Build professional forms with our intuitive drag-and-drop builder.</p>
+            
+            <div class="relative mt-8 h-[320px] overflow-hidden rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20">
+              <div class="absolute inset-6 rounded-lg bg-gray-900/90 p-6 backdrop-blur">
+                <div class="space-y-4">
+                  <div class="h-8 w-3/4 rounded bg-gray-800"></div>
+                  <div class="space-y-2">
+                    <div class="h-4 w-1/2 rounded bg-gray-800"></div>
+                    <div class="h-10 rounded bg-gray-800 ring-1 ring-white/10"></div>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="h-4 w-1/3 rounded bg-gray-800"></div>
+                    <div class="h-24 rounded bg-gray-800 ring-1 ring-white/10"></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </foreignObject>
-      </svg>
-    </div>
-  </div>
+        </div>
+      </div>
 
-  <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8">
-    <div class="mx-auto max-w-2xl lg:mx-0">
-      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Everything you need</h2>
-      <p class="mt-6 text-lg leading-8 text-gray-600">
-        Powerful features to help you manage your catering business more efficiently.
-      </p>
+      <!-- Pricing -->
+      <div>
+        <div class="relative overflow-hidden rounded-3xl bg-gray-800 p-px h-full">
+          <div class="relative h-full overflow-hidden rounded-3xl bg-gray-900 p-8 sm:p-10">
+            <h3 class="text-base/7 font-semibold text-emerald-400">Simple Pricing</h3>
+            <p class="mt-4 flex items-baseline gap-x-2">
+              <span class="text-5xl font-semibold tracking-tight text-white">$10</span>
+              <span class="text-base text-gray-400">/month</span>
+            </p>
+            <p class="mt-2 text-sm text-gray-400">or $99/year</p>
+            <p class="mt-6 text-base/7 text-gray-300">Everything you need to create and manage forms.</p>
+            
+            <ul role="list" class="mt-8 space-y-3 text-sm/6 text-gray-300 sm:mt-10">
+              <li class="flex gap-x-3">
+                <svg class="h-6 w-5 flex-none text-emerald-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                </svg>
+                Unlimited forms
+              </li>
+              <li class="flex gap-x-3">
+                <svg class="h-6 w-5 flex-none text-emerald-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                </svg>
+                Unlimited responses
+              </li>
+              <li class="flex gap-x-3">
+                <svg class="h-6 w-5 flex-none text-emerald-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                </svg>
+                Custom branding
+              </li>
+              <li class="flex gap-x-3">
+                <svg class="h-6 w-5 flex-none text-emerald-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                </svg>
+                Website embedding
+              </li>
+              <li class="flex gap-x-3">
+                <svg class="h-6 w-5 flex-none text-emerald-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                </svg>
+                Response analytics
+              </li>
+            </ul>
+
+            <%= link_to "Get started today", new_user_registration_path, class: "mt-8 block rounded-md bg-emerald-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 sm:mt-10" %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Embed Anywhere -->
+      <div>
+        <div class="relative overflow-hidden rounded-3xl bg-gray-800 p-px">
+          <div class="relative overflow-hidden rounded-3xl bg-gray-900 p-8 sm:p-10">
+            <h3 class="text-base/7 font-semibold text-emerald-400">Embedding</h3>
+            <p class="mt-4 text-lg font-medium tracking-tight text-white">Embed Anywhere</p>
+            <p class="mt-2 text-base/7 text-gray-300">Add your form to any website with a simple embed code.</p>
+            
+            <div class="relative mt-8 h-[320px] overflow-hidden rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20">
+              <div class="absolute inset-6 rounded-lg bg-gray-900/90 p-4 backdrop-blur">
+                <div class="space-y-3">
+                  <div class="h-6 w-full rounded bg-gray-800"></div>
+                  <div class="h-24 rounded bg-gray-800 ring-1 ring-white/10"></div>
+                  <div class="flex justify-end">
+                    <div class="h-8 w-24 rounded bg-emerald-500"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Share Links -->
+      <div class="sm:col-span-2">
+        <div class="relative overflow-hidden rounded-3xl bg-gray-800 p-px">
+          <div class="relative overflow-hidden rounded-3xl bg-gray-900 p-8 sm:p-10">
+            <h3 class="text-base/7 font-semibold text-emerald-400">Sharing</h3>
+            <p class="mt-4 text-lg font-medium tracking-tight text-white">Share via Link</p>
+            <p class="mt-2 text-base/7 text-gray-300">Generate shareable links for your forms. Perfect for sending to clients.</p>
+            
+            <div class="relative mt-8 h-[320px] overflow-hidden rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20">
+              <div class="absolute inset-6 rounded-lg bg-gray-900/90 p-4 backdrop-blur">
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="space-y-3">
+                    <div class="flex items-center space-x-2">
+                      <div class="h-8 w-8 rounded-full bg-emerald-500"></div>
+                      <div class="h-4 w-32 rounded bg-gray-800"></div>
+                    </div>
+                    <div class="h-16 rounded bg-gray-800 ring-1 ring-white/10"></div>
+                    <div class="space-y-2">
+                      <div class="h-3 w-3/4 rounded bg-gray-800"></div>
+                      <div class="h-3 w-1/2 rounded bg-gray-800"></div>
+                    </div>
+                  </div>
+                  <div class="space-y-3">
+                    <div class="flex items-center space-x-2">
+                      <div class="h-8 w-8 rounded-full bg-emerald-500"></div>
+                      <div class="h-4 w-32 rounded bg-gray-800"></div>
+                    </div>
+                    <div class="h-16 rounded bg-gray-800 ring-1 ring-white/10"></div>
+                    <div class="space-y-2">
+                      <div class="h-3 w-3/4 rounded bg-gray-800"></div>
+                      <div class="h-3 w-1/2 rounded bg-gray-800"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <dl class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 text-base leading-7 text-gray-600 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:gap-x-16">
-      <div class="relative pl-9">
-        <dt class="inline font-semibold text-gray-900">
-          <svg class="absolute left-1 top-1 h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-          </svg>
-          Customizable Forms
-        </dt>
-        <dd class="inline">Create forms that match your brand and collect exactly the information you need.</dd>
-      </div>
-      <div class="relative pl-9">
-        <dt class="inline font-semibold text-gray-900">
-          <svg class="absolute left-1 top-1 h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-          </svg>
-          Easy Embedding
-        </dt>
-        <dd class="inline">Embed forms on your website with a simple copy and paste.</dd>
-      </div>
-      <div class="relative pl-9">
-        <dt class="inline font-semibold text-gray-900">
-          <svg class="absolute left-1 top-1 h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-          </svg>
-          Response Management
-        </dt>
-        <dd class="inline">Track and manage all your form responses in one place.</dd>
-      </div>
-      <div class="relative pl-9">
-        <dt class="inline font-semibold text-gray-900">
-          <svg class="absolute left-1 top-1 h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-          </svg>
-          Modern Design
-        </dt>
-        <dd class="inline">Beautiful, responsive forms that work on any device.</dd>
-      </div>
-    </dl>
   </div>
 </div>

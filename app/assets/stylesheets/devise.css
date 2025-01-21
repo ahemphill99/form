@@ -1,0 +1,9 @@
+/* Custom checkbox styles */
+input[type="checkbox"]:checked {
+  background-color: #10b981 !important; /* emerald-500 */
+  border-color: #10b981 !important;
+}
+
+input[type="checkbox"]:focus {
+  --tw-ring-color: #10b981 !important;
+}

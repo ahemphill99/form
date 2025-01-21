@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html class="h-full bg-white" lang="en">
+<html class="h-full bg-gray-900" lang="en">
   <head>
-    <title><%= content_for(:title) || "Catering Form" %></title>
+    <title><%= content_for(:title) || "Form" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -13,75 +13,77 @@
 
   <body class="h-full">
     <% if user_signed_in? %>
-      <div class="min-h-full">
-        <nav class="border-b border-gray-200 bg-white">
+      <div class="relative min-h-full">
+        <nav class="bg-gray-800 border-b border-white/10">
           <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="flex h-16 justify-between">
-              <div class="flex">
-                <div class="flex flex-shrink-0 items-center">
-                  <%= link_to root_path, class: "text-xl font-semibold text-gray-900" do %>
-                    Catering Form
+            <div class="flex h-16 justify-between items-center">
+              <div class="flex items-center">
+                <div class="flex-shrink-0">
+                  <%= link_to root_path, class: "flex items-center" do %>
+                    <span class="text-2xl font-bold text-white">Form app name</span>
                   <% end %>
                 </div>
-                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                  <%= link_to 'Dashboard', dashboard_path, class: "inline-flex items-center border-b-2 #{current_page?(dashboard_path) ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'} px-1 pt-1 text-sm font-medium" %>
-                  <%= link_to 'My Forms', forms_path, class: "inline-flex items-center border-b-2 #{current_page?(forms_path) ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'} px-1 pt-1 text-sm font-medium" %>
-                  <%= link_to 'Responses', responses_path, class: "inline-flex items-center border-b-2 #{current_page?(responses_path) ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'} px-1 pt-1 text-sm font-medium" %>
+                <div class="hidden sm:ml-10 sm:flex sm:space-x-8">
+                  <%= link_to 'Dashboard', dashboard_path, 
+                      class: "relative inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors duration-200 #{current_page?(dashboard_path) ? 'text-emerald-400 font-semibold' : 'text-gray-400 hover:text-white'}" %>
+                  <%= link_to 'My Forms', forms_path, 
+                      class: "relative inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors duration-200 #{current_page?(forms_path) ? 'text-emerald-400 font-semibold' : 'text-gray-400 hover:text-white'}" %>
                 </div>
               </div>
-              <div class="hidden sm:ml-6 sm:flex sm:items-center">
-                <div class="relative ml-3">
-                  <div class="flex items-center">
-                    <span class="text-sm text-gray-500 mr-4"><%= current_user.email %></span>
-                    <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, 
-                        class: 'rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50' %>
-                  </div>
+              
+              <div class="flex items-center">
+                <div class="flex-shrink-0">
+                  <%= button_to destroy_user_session_path, method: :delete, 
+                      class: "inline-flex items-center text-sm font-medium text-gray-400 hover:text-white" do %>
+                    Sign out
+                    <svg class="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+                    </svg>
+                  <% end %>
                 </div>
               </div>
             </div>
           </div>
         </nav>
 
-        <div class="py-10">
-          <main>
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-              <% if notice %>
-                <div class="rounded-md bg-green-50 p-4 mb-6">
-                  <div class="flex">
-                    <div class="flex-shrink-0">
-                      <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-                      </svg>
-                    </div>
-                    <div class="ml-3">
-                      <p class="text-sm font-medium text-green-800"><%= notice %></p>
-                    </div>
+        <main>
+          <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+            <% if notice %>
+              <div class="rounded-md bg-emerald-400/10 p-4 mb-6 ring-1 ring-emerald-400/20">
+                <div class="flex">
+                  <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-emerald-400" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div class="ml-3">
+                    <p class="text-sm font-medium text-emerald-400"><%= notice %></p>
                   </div>
                 </div>
-              <% end %>
+              </div>
+            <% end %>
 
-              <% if alert %>
-                <div class="rounded-md bg-red-50 p-4 mb-6">
-                  <div class="flex">
-                    <div class="flex-shrink-0">
-                      <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
-                      </svg>
-                    </div>
-                    <div class="ml-3">
-                      <p class="text-sm font-medium text-red-800"><%= alert %></p>
-                    </div>
+            <% if alert %>
+              <div class="rounded-md bg-red-400/10 p-4 mb-6 ring-1 ring-red-400/20">
+                <div class="flex">
+                  <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <div class="ml-3">
+                    <p class="text-sm font-medium text-red-400"><%= alert %></p>
                   </div>
                 </div>
-              <% end %>
+              </div>
+            <% end %>
 
-              <%= yield %>
-            </div>
-          </main>
-        </div>
+            <%= yield %>
+          </div>
+        </main>
       </div>
     <% else %>
-      <div class="flex min-h-full flex-col">
+      <div class="min-h-screen">
         <%= yield %>
       </div>
     <% end %>

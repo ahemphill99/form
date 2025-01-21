@@ -2,12 +2,17 @@
   <div class="px-4 py-6 sm:px-0">
     <div class="mb-8">
       <div class="flex justify-between items-center">
-        <h1 class="text-2xl font-semibold text-gray-900">Edit Form: <%= @form.title %></h1>
-        <%= link_to 'Back to Form', @form, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700" %>
+        <h1 class="text-2xl font-semibold text-white">Edit Form: <%= @form.title %></h1>
+        <%= link_to @form, class: "inline-flex items-center text-sm font-medium text-gray-400 hover:text-white" do %>
+          <svg class="mr-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd" />
+          </svg>
+          Back to Form
+        <% end %>
       </div>
     </div>
 
-    <div class="bg-white shadow sm:rounded-lg">
+    <div class="bg-gray-800 shadow sm:rounded-lg ring-1 ring-white/10">
       <div class="px-4 py-5 sm:p-6">
         <%= render 'form', form: @form %>
       </div>

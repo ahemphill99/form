@@ -1,107 +1,140 @@
-<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-  <div class="sm:mx-auto sm:w-full sm:max-w-md">
-    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+<div class="min-h-screen bg-white flex flex-col py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-3xl">
+    <h2 class="text-center text-4xl font-extrabold text-gradient leading-tight tracking-tight">
       <%= @form.title %>
     </h2>
-    <p class="mt-2 text-center text-sm text-gray-600">
+    <p class="mt-4 text-center text-xl text-gray-600 max-w-2xl mx-auto">
       <%= @form.description %>
     </p>
   </div>
 
-  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-    <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-      <div class="flex justify-between items-center mb-6">
-        <h3 class="text-lg font-medium leading-6 text-gray-900">
-          Question <%= @current_index + 1 %> of <%= @total_questions %>
-        </h3>
-        <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">
-          <%= @question.question_type %>
-        </span>
+  <div class="mt-12 sm:mx-auto sm:w-full sm:max-w-2xl relative">
+    <!-- Decorative elements -->
+    <div class="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 pointer-events-none">
+      <div class="blur-[106px] h-56 bg-gradient-to-br from-sky-400 to-sky-200"></div>
+      <div class="blur-[106px] h-32 bg-gradient-to-r from-purple-400 to-purple-200"></div>
+    </div>
+
+    <div class="relative bg-white/80 backdrop-blur-sm shadow-xl ring-1 ring-gray-900/5 sm:rounded-2xl overflow-hidden">
+      <!-- Progress bar -->
+      <div class="w-full h-1 bg-gradient-to-r from-sky-400/20 to-purple-400/20">
+        <div class="h-1 bg-gradient-custom transition-all duration-500" style="width: <%= (@current_index.to_f / @total_questions * 100).round %>%"></div>
       </div>
 
-      <div class="space-y-6">
-        <div>
-          <label class="block text-sm font-medium text-gray-700">
-            <%= @question.question_text %>
-            <% if @question.required? %>
-              <span class="text-red-500">*</span>
-            <% end %>
-          </label>
-
-          <%= form_tag answer_public_form_question_path(form_public_token: @form.public_token, id: @question.id), method: :post, data: { turbo_frame: "_top" } do %>
-            <div class="mt-1">
-              <% case @question.question_type.to_sym %>
-              <% when :text %>
-                <%= text_field_tag :response, session.dig(:form_responses, @question.id.to_s),
-                    class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md",
-                    required: @question.required? %>
-
-              <% when :textarea %>
-                <%= text_area_tag :response, session.dig(:form_responses, @question.id.to_s),
-                    class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md",
-                    rows: 4,
-                    required: @question.required? %>
-
-              <% when :number %>
-                <%= number_field_tag :response, session.dig(:form_responses, @question.id.to_s),
-                    class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md",
-                    required: @question.required? %>
-
-              <% when :email %>
-                <%= email_field_tag :response, session.dig(:form_responses, @question.id.to_s),
-                    class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md",
-                    required: @question.required? %>
-
-              <% when :date %>
-                <%= date_field_tag :response, session.dig(:form_responses, @question.id.to_s),
-                    class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md",
-                    required: @question.required? %>
-
-              <% when :select %>
-                <%= select_tag :response,
-                    options_for_select(@question.options, session.dig(:form_responses, @question.id.to_s)),
-                    class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md",
-                    required: @question.required? %>
-
-              <% when :radio %>
-                <div class="mt-4 space-y-4">
-                  <% @question.options.each do |option| %>
-                    <div class="flex items-center">
-                      <%= radio_button_tag :response, option, session.dig(:form_responses, @question.id.to_s) == option,
-                          class: "focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300",
-                          required: @question.required? %>
-                      <%= label_tag "response_#{option.parameterize}", option, class: "ml-3 block text-sm font-medium text-gray-700" %>
-                    </div>
-                  <% end %>
-                </div>
-
-              <% when :checkbox %>
-                <div class="mt-4 space-y-4">
-                  <% @question.options.each do |option| %>
-                    <div class="flex items-center">
-                      <%= check_box_tag "response[]", option,
-                          (session.dig(:form_responses, @question.id.to_s) || []).include?(option),
-                          class: "focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded",
-                          required: @question.required? %>
-                      <%= label_tag "response_#{option.parameterize}", option, class: "ml-3 block text-sm font-medium text-gray-700" %>
-                    </div>
-                  <% end %>
-                </div>
-              <% end %>
-            </div>
-
-            <div class="mt-8 flex justify-between">
-              <% if @current_index > 0 %>
-                <%= link_to "Back", public_form_question_path(@form.public_token, @form.questions.order(:order)[@current_index - 1]),
-                    class: "inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
-                    data: { turbo_frame: "_top" } %>
-              <% end %>
-
-              <%= submit_tag @next_question ? "Next" : "Review Answers",
-                  class: "ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
-            </div>
-          <% end %>
+      <div class="py-8 px-4 sm:px-10">
+        <div class="flex justify-between items-center mb-8">
+          <div class="flex items-center space-x-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-custom text-white text-lg font-semibold shadow-lg">
+              <%= @current_index + 1 %>
+            </span>
+            <span class="text-sm text-gray-500">Question <%= @current_index + 1 %> of <%= @total_questions %></span>
+          </div>
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-sky-50 to-purple-50 text-sky-900 ring-1 ring-inset ring-sky-500/20">
+            <%= @question.question_type %>
+          </span>
         </div>
+
+        <%= form_tag answer_public_form_question_path(form_public_token: @form.public_token, id: @question.id), 
+            method: :post, 
+            data: { turbo_frame: "_top" },
+            class: "space-y-8" do %>
+          
+          <div class="space-y-6">
+            <div class="relative">
+              <label class="block text-xl font-medium text-gray-900 mb-4">
+                <%= @question.question_text %>
+                <% if @question.required? %>
+                  <span class="text-gradient ml-1">*</span>
+                <% end %>
+              </label>
+
+              <% case @question.question_type %>
+              <% when 'text' %>
+                <%= text_field_tag 'answer[response]', nil, 
+                    class: "block w-full rounded-xl border-0 px-4 py-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-500 sm:text-sm sm:leading-6 transition-shadow duration-200 bg-white/50 backdrop-blur-sm",
+                    required: @question.required?,
+                    placeholder: "Enter your answer" %>
+
+              <% when 'textarea' %>
+                <%= text_area_tag 'answer[response]', nil, 
+                    class: "block w-full rounded-xl border-0 px-4 py-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-500 sm:text-sm sm:leading-6 transition-shadow duration-200 bg-white/50 backdrop-blur-sm",
+                    rows: 4,
+                    required: @question.required?,
+                    placeholder: "Enter your detailed response" %>
+
+              <% when 'number' %>
+                <%= number_field_tag 'answer[response]', nil, 
+                    class: "block w-full rounded-xl border-0 px-4 py-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-500 sm:text-sm sm:leading-6 transition-shadow duration-200 bg-white/50 backdrop-blur-sm",
+                    required: @question.required?,
+                    placeholder: "Enter your answer" %>
+
+              <% when 'email' %>
+                <%= email_field_tag 'answer[response]', nil, 
+                    class: "block w-full rounded-xl border-0 px-4 py-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-500 sm:text-sm sm:leading-6 transition-shadow duration-200 bg-white/50 backdrop-blur-sm",
+                    required: @question.required?,
+                    placeholder: "Enter your answer" %>
+
+              <% when 'date' %>
+                <%= date_field_tag 'answer[response]', nil, 
+                    class: "block w-full rounded-xl border-0 px-4 py-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-500 sm:text-sm sm:leading-6 transition-shadow duration-200 bg-white/50 backdrop-blur-sm",
+                    required: @question.required?,
+                    placeholder: "Enter your answer" %>
+
+              <% when 'select' %>
+                <%= select_tag 'answer[response]',
+                    options_for_select(@question.options, session.dig(:form_responses, @question.id.to_s)),
+                    { class: "block w-full rounded-xl border-0 px-4 py-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-500 sm:text-sm sm:leading-6 transition-shadow duration-200 bg-white/50 backdrop-blur-sm",
+                      required: @question.required? } %>
+
+              <% when 'radio' %>
+                <div class="space-y-4">
+                  <% @question.options.each do |option| %>
+                    <label class="relative flex p-4 cursor-pointer rounded-xl ring-1 ring-gray-200 hover:ring-sky-500 transition-all duration-200">
+                      <div class="flex items-center">
+                        <div class="flex h-6 items-center">
+                          <%= radio_button_tag 'answer[response]', option, false, 
+                              class: "h-4 w-4 border-gray-300 text-sky-600 focus:ring-sky-600 transition-colors duration-200",
+                              required: @question.required? %>
+                        </div>
+                        <div class="ml-3">
+                          <span class="font-medium text-gray-900"><%= option %></span>
+                        </div>
+                      </div>
+                    </label>
+                  <% end %>
+                </div>
+
+              <% when 'checkbox' %>
+                <div class="space-y-4">
+                  <% @question.options.each do |option| %>
+                    <label class="relative flex p-4 cursor-pointer rounded-xl ring-1 ring-gray-200 hover:ring-sky-500 transition-all duration-200">
+                      <div class="flex items-center">
+                        <div class="flex h-6 items-center">
+                          <%= check_box_tag "answer[response][]", option, (session.dig(:form_responses, @question.id.to_s) || []).include?(option),
+                              class: "h-4 w-4 border-gray-300 text-sky-600 focus:ring-sky-600 transition-colors duration-200",
+                              required: @question.required? %>
+                        </div>
+                        <div class="ml-3">
+                          <span class="font-medium text-gray-900"><%= option %></span>
+                        </div>
+                      </div>
+                    </label>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between pt-6">
+            <% if @current_index > 0 %>
+              <%= link_to "Back", public_form_question_path(@form.public_token, @form.questions.order(:order)[@current_index - 1]),
+                  class: "inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 hover:text-gray-900" %>
+            <% end %>
+
+            <%= submit_tag @next_question ? "Next →" : "Review Answers",
+                class: "rounded-xl bg-gradient-custom px-8 py-3 text-sm font-semibold text-white shadow-lg hover:opacity-90 transition-all duration-200" %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

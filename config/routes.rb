@@ -1,29 +1,43 @@
 Rails.application.routes.draw do
+  # Devise routes for users
   devise_for :users
 
+  # Root route
   root "home#index"
+
+  # Dashboard routes
   get "dashboard", to: "dashboard#index"
   get "responses", to: "dashboard#all_responses"
 
+  # Form routes
   resources :forms do
+    # Question routes
     resources :questions do
+      # Move question route
       member do
         patch :move
       end
     end
+
+    # Form responses route
     member do
       get :responses
     end
   end
 
+  # Public namespace
   namespace :public do
-    resources :forms, param: :public_token, only: [ :show ] do
+    # Public form routes
+    resources :forms, param: :public_token, only: [:show] do
+      # Submit form route
       member do
         post :submit
         get :review
       end
 
-      resources :questions, only: [ :show ] do
+      # Public question routes
+      resources :questions, only: [:show] do
+        # Answer question route
         member do
           post :answer
         end
