@@ -17,33 +17,45 @@ Rails.application.routes.draw do
     resources :questions do
       # Move question route
       member do
-        patch :move
+        patch "move"
       end
     end
 
     # Form responses route
     member do
-      get :responses
+      get "responses"
     end
   end
 
   # Public namespace
   namespace :public do
     # Public form routes
-    resources :forms, param: :public_token, only: [:show] do
+    resources :forms, param: :public_token, only: [ :show, :create ] do
       # Submit form route
       member do
-        post :submit
-        get :review
+        post "submit"
+        get "review"
       end
 
       # Public question routes
-      resources :questions, only: [:show] do
+      resources :questions, only: [ :show ] do
         # Answer question route
         member do
-          post :answer
+          post "answer"
         end
       end
     end
+    root "forms#index"
   end
+
+  # Subscription routes
+  resources :subscriptions, only: [ :index, :new, :create ] do
+    collection do
+      get "success"
+      get "error"
+    end
+  end
+
+  # Pricing route
+  get "pricing", to: "subscriptions#pricing"
 end

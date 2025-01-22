@@ -399,7 +399,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
-  pay (~> 6.0)
+  pay (~> 6.8)
   propshaft
   puma (>= 5.0)
   rails (~> 8.0.1)

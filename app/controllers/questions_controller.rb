@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_form
-  before_action :set_question, only: [:show, :edit, :update, :destroy, :move]
+  before_action :set_question, only: [ :show, :edit, :update, :destroy, :move ]
 
   def index
     @questions = @form.questions.order(:order)
@@ -22,7 +22,7 @@ class QuestionsController < ApplicationController
     @question.order = @form.questions.count
 
     if @question.save
-      redirect_to form_path(@form), notice: 'Question was successfully created.'
+      redirect_to form_url(@form), notice: "Question was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -30,7 +30,7 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update(question_params)
-      redirect_to form_path(@form), notice: 'Question was successfully updated.'
+      redirect_to form_url(@form), notice: "Question was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -38,7 +38,7 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question.destroy
-    redirect_to form_path(@form), notice: 'Question was successfully deleted.'
+    redirect_to form_url(@form), notice: "Question was successfully deleted."
   end
 
   def move

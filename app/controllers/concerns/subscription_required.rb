@@ -12,6 +12,6 @@ module SubscriptionRequired
     return if current_user&.active_subscription?
     return if current_user&.trial_ends_at&.future?
 
-    redirect_to pricing_path, alert: 'Please subscribe to access this feature.'
+    redirect_to pricing_path, alert: "Please subscribe to access this feature."
   end
 end

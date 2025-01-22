@@ -46,8 +46,8 @@ gem "thruster", require: false
 gem "devise"
 
 # Payment processing
-gem 'stripe', '~> 9.0'
-gem 'pay', '~> 6.0'
+gem "stripe", "~> 9.0"
+gem "pay", "~> 6.8"
 
 # Add acts_as_list gem
 gem "acts_as_list"

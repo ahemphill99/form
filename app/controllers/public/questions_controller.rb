@@ -26,13 +26,12 @@ module Public
       session[:form_responses] ||= {}
       
       # Store the response in session
-      if params[:response].present?
-        session[:form_responses][@question.id.to_s] = params[:response]
-      else
-        if @question.required?
-          flash[:alert] = "Please provide a response"
-          redirect_to public_form_question_path(@form, @question) and return
-        end
+      response_text = params.dig(:answer, :response)
+      if response_text.present?
+        session[:form_responses][@question.id.to_s] = response_text
+      elsif @question.required?
+        flash[:alert] = "Please provide a response"
+        redirect_to public_form_question_path(@form, @question) and return
       end
 
       if @next_question

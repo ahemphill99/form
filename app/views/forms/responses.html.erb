@@ -1,60 +1,40 @@
-<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-  <div class="px-4 py-6 sm:px-0">
-    <div class="mb-8">
-      <div class="flex justify-between items-center">
-        <h1 class="text-2xl font-semibold text-white">Responses for <%= @form.title %></h1>
-        <div class="flex space-x-4">
-          <%= link_to form_path(@form), class: "inline-flex items-center text-sm font-medium text-gray-400 hover:text-white" do %>
-            <svg class="mr-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd" />
-            </svg>
-            Back to Form
-          <% end %>
-        </div>
-      </div>
+<div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-3xl">
+    
+    <div class="px-4 sm:px-0">
+      <h1 class="text-base font-semibold leading-7 text-white">Form Responses</h1>
+      <p class="mt-1 text-sm leading-6 text-gray-400">View all responses for <%= @form.title %></p>
     </div>
 
-    <div class="bg-gray-800 shadow overflow-hidden sm:rounded-lg ring-1 ring-white/10">
-      <div class="px-4 py-5 sm:px-6">
-        <h3 class="text-lg leading-6 font-medium text-white">Form Responses</h3>
-        <p class="mt-1 max-w-2xl text-sm text-gray-400">
-          <%= @form.title %>
-        </p>
-      </div>
-
-      <% if @responses.any? %>
-        <div class="border-t border-white/10">
-          <% @responses.each do |response| %>
-            <div class="bg-gray-800 px-4 py-5 sm:px-6 border-b border-white/10">
-              <dl class="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
-                <% @form.questions.each do |question| %>
-                  <div class="sm:col-span-1">
-                    <dt class="text-sm font-medium text-gray-400">
-                      <%= question.question_text %>
-                    </dt>
-                    <dd class="mt-1 text-sm text-white">
-                      <%= (response.response_data || {})[question.id.to_s] || "No response" %>
-                    </dd>
-                  </div>
-                <% end %>
-                <div class="sm:col-span-2">
-                  <dt class="text-sm font-medium text-gray-400">
-                    Submitted At
-                  </dt>
+    <% if @responses.any? %>
+      <div class="border-t border-white/10">
+        <% @responses.each do |response| %>
+          <div class="bg-gray-800 px-4 py-5 sm:px-6 border-b border-white/10">
+            <dl class="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
+              <% @form.questions.each do |question| %>
+                <div class="sm:col-span-1">
+                  <dt class="text-sm font-medium text-gray-400"><%= question.question_text %></dt>
                   <dd class="mt-1 text-sm text-white">
-                    <%= response.created_at.strftime("%B %d, %Y at %I:%M %p") %>
+                    <%= response.response_for_question(question.id) || "No response" %>
                   </dd>
                 </div>
-              </dl>
-            </div>
-          <% end %>
-        </div>
-      <% else %>
-        <div class="px-4 py-5 sm:px-6 text-center">
-          <p class="text-sm text-gray-400">No responses yet.</p>
-        </div>
-      <% end %>
-    </div>
+              <% end %>
+              
+              <div class="sm:col-span-2">
+                <dt class="text-sm font-medium text-gray-400">Submitted At</dt>
+                <dd class="mt-1 text-sm text-white">
+                  <%= response.created_at.strftime("%B %d, %Y at %I:%M %p") %>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="px-4 py-5 sm:px-6 text-center">
+        <p class="text-sm text-gray-400">No responses yet.</p>
+      </div>
+    <% end %>
 
     <div class="mt-4">
       <%= link_to form_path(@form), class: "inline-flex items-center text-sm font-medium text-gray-400 hover:text-white" do %>
