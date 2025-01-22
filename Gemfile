@@ -47,7 +47,7 @@ gem "devise"
 
 # Payment processing
 gem "stripe", "~> 9.0"
-gem "pay", "~> 6.8"
+gem "pay", "~> 8.3"
 
 # Add acts_as_list gem
 gem "acts_as_list"
