@@ -3,6 +3,11 @@ class DashboardController < ApplicationController
 
   def index
     @forms = current_user.forms.includes(:questions, :form_responses).order(created_at: :desc)
+    @recent_responses = FormResponse.joins(:form)
+                                  .where(forms: { user_id: current_user.id })
+                                  .includes(:form)
+                                  .order(created_at: :desc)
+                                  .limit(10)
   end
 
   def all_responses

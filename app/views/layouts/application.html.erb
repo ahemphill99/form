@@ -24,10 +24,10 @@
                   <% end %>
                 </div>
                 <div class="hidden sm:ml-10 sm:flex sm:space-x-8">
-                  <%= link_to 'Dashboard', dashboard_path, 
-                      class: "relative inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors duration-200 #{current_page?(dashboard_path) ? 'text-emerald-400 font-semibold' : 'text-gray-400 hover:text-white'}" %>
                   <%= link_to 'My Forms', forms_path, 
                       class: "relative inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors duration-200 #{current_page?(forms_path) ? 'text-emerald-400 font-semibold' : 'text-gray-400 hover:text-white'}" %>
+                  <%= link_to 'Form Responses', responses_path, 
+                      class: "relative inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors duration-200 #{current_page?(responses_path) ? 'text-emerald-400 font-semibold' : 'text-gray-400 hover:text-white'}" %>
                 </div>
               </div>
               

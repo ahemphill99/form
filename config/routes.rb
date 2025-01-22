@@ -3,10 +3,12 @@ Rails.application.routes.draw do
   devise_for :users
 
   # Root route
+  authenticated :user do
+    root "forms#index", as: :authenticated_root
+  end
   root "home#index"
 
-  # Dashboard routes
-  get "dashboard", to: "dashboard#index"
+  # Response routes
   get "responses", to: "dashboard#all_responses"
 
   # Form routes
