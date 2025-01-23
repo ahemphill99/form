@@ -59,6 +59,7 @@ class FormsController < ApplicationController
   end
 
   def form_params
-    params.require(:form).permit(:title, :description, :completion_message)
+    params.require(:form).permit(:title, :description, :completion_message, :company_name, :logo,
+                               :background_color, :font_color, :width, :height)
   end
 end

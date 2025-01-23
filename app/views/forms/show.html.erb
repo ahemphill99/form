@@ -22,9 +22,9 @@
         <h2 class="text-lg leading-6 font-medium text-white">Public Form Link</h2>
         <div class="mt-2 flex items-center space-x-4">
           <div class="flex-1">
-            <input type="text" readonly value="<%= public_form_url(@form.public_token, host: request.host_with_port) %>" class="block w-full px-3 py-2 text-sm bg-gray-900 border-0 text-gray-400 rounded-md ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-emerald-500" onclick="this.select()" />
+            <input type="text" readonly value="<%= form_url(@form, host: request.host_with_port) %>" class="block w-full px-3 py-2 text-sm bg-gray-900 border-0 text-gray-400 rounded-md ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-emerald-500" onclick="this.select()" />
           </div>
-          <%= link_to public_form_path(@form.public_token), target: '_blank', class: "inline-flex items-center text-sm font-medium text-gray-400 hover:text-white" do %>
+          <%= link_to form_path(@form), target: '_blank', class: "inline-flex items-center text-sm font-medium text-gray-400 hover:text-white" do %>
             Open Form
             <svg class="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z" clip-rule="evenodd" />

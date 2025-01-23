@@ -27,35 +27,23 @@ Rails.application.routes.draw do
     end
   end
 
-  # Public namespace
-  namespace :public do
-    # Public form routes
-    resources :forms, param: :public_token, only: [ :show, :create ] do
-      # Submit form route
+  # Public form routes
+  scope module: 'public' do
+    resources :forms, only: [:show], path: 'public/forms', param: :public_token do
       member do
-        post "submit"
-        get "review"
-      end
-
-      # Public question routes
-      resources :questions, only: [ :show ] do
-        # Answer question route
-        member do
-          post "answer"
-        end
+        post :submit
+        get :thank_you
       end
     end
-    root "forms#index"
   end
 
   # Subscription routes
   resources :subscriptions, only: [ :index, :new, :create ] do
     collection do
-      get "success"
-      get "error"
+      get :success
+      get :cancel
     end
   end
 
-  # Pricing route
   get "pricing", to: "subscriptions#pricing"
 end
