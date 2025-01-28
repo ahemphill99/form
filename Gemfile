@@ -49,7 +49,7 @@ gem 'active_storage_validations'
 gem "devise"
 
 # Payment processing
-gem "stripe", "~> 9.0"
+gem "stripe", "~> 13.4"
 gem "pay", "~> 6.8"
 
 # Add acts_as_list gem
